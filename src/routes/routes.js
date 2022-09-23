@@ -11,6 +11,11 @@ import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
+import MoviesReports from '../pages/MoviesReports'
+import CommentsReports from '../pages/CommentsReports'
+import UsersReports from '../pages/UsersReports'
+import LogsReports from '../pages/LogsReports'
+import Reports from '../pages/Reports'
 
 const routes = [
   {
@@ -32,6 +37,31 @@ const routes = [
         path: 'user',
         name: 'User',
         component: UserProfile
+      },
+      {
+        path: 'users',
+        name: 'Users',
+        component: UsersReports,
+      },
+      {
+        path: 'reports',
+        name: 'Reports',
+        component: Reports,
+      },
+      {
+        path: 'movies',
+        name: 'Movies',
+        component: MoviesReports,
+      },
+      {
+        path: 'comments',
+        name: 'Comments',
+        component: CommentsReports,
+      },
+      {
+        path: 'logs',
+        name: 'Session',
+        component: LogsReports,
       },
       {
         path: 'table-list',
