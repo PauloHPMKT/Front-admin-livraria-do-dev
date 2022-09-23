@@ -11,7 +11,7 @@ import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
-import MoviesReports from '../pages/MoviesReports'
+import BooksReports from '../pages/BooksReports'
 import CommentsReports from '../pages/CommentsReports'
 import UsersReports from '../pages/UsersReports'
 import LogsReports from '../pages/LogsReports'
@@ -49,9 +49,9 @@ const routes = [
         component: Reports,
       },
       {
-        path: 'movies',
-        name: 'Movies',
-        component: MoviesReports,
+        path: 'books',
+        name: 'Books',
+        component: BooksReports,
       },
       {
         path: 'comments',

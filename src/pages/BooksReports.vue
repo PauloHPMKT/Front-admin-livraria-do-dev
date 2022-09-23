@@ -1,12 +1,12 @@
 <template>
   <div>
-    Relatório de filmes
+    Relatorio de livros
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MoviesReports',
+  name: 'BooksReports',
 }
 </script>
 

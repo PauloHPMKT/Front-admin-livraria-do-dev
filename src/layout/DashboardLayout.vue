@@ -38,7 +38,7 @@
             <li>
               <sidebar-link to="/admin/movies">
                 <i class="nc-icon nc-tv-2"></i>
-                <p>Filmes</p>
+                <p>Livros</p>
               </sidebar-link>
             </li>
             <li>
