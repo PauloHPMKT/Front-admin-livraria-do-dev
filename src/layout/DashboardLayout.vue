@@ -30,7 +30,7 @@
           </sidebar-link>
         </li>
         <li>
-          <sidebar-link to="#">
+          <sidebar-link to="/admin/reports">
             <i class="nc-icon nc-notes"></i>
             <p>Relatórios</p>
           </sidebar-link>
