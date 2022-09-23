@@ -11,16 +11,17 @@
       <div class="copyright text-center">
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
-        <a href="https://binarcode.com" target="_blank">BinarCode</a>.
+        <a href="#" target="_blank">Paulo Dev Trainee Tallos</a>.
         Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">Creative Tim</a>.
       </div>
     </div>
   </footer>
 </template>
+
 <script>
-  export default {}
-
+export default {
+  name: 'ContentFooter',
+}
 </script>
-<style>
-
+<style lang="scss" scoped>
 </style>
