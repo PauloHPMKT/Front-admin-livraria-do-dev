@@ -36,7 +36,7 @@
           </sidebar-link>
           <ul class="submenu">
             <li>
-              <sidebar-link to="/admin/movies">
+              <sidebar-link to="/admin/books">
                 <i class="nc-icon nc-tv-2"></i>
                 <p>Livros</p>
               </sidebar-link>
