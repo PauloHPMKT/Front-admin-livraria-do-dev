@@ -18,12 +18,15 @@ import LogsReports from '../pages/LogsReports'
 import Reports from '../pages/Reports'
 import Login from '../pages/Login.vue'
 
+const guard = () => (to, from, next) => {
+  if (localStorage.getItem('token') || '') {
+    next()
+  } else {
+    next('/login')
+  }
+}
+
 const routes = [
-  {
-    path: '/',
-    component: DashboardLayout,
-    redirect: '/admin/overview'
-  },
   {
     path: '/login',
     name: 'Login',
@@ -32,7 +35,7 @@ const routes = [
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/overview',
+    beforeEnter: guard(),
     children: [
       {
         path: 'overview',
