@@ -16,12 +16,18 @@ import CommentsReports from '../pages/CommentsReports'
 import UsersReports from '../pages/UsersReports'
 import LogsReports from '../pages/LogsReports'
 import Reports from '../pages/Reports'
+import Login from '../pages/Login.vue'
 
 const routes = [
   {
     path: '/',
     component: DashboardLayout,
     redirect: '/admin/overview'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/admin',
