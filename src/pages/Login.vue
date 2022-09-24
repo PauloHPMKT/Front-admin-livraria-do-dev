@@ -10,7 +10,7 @@
       </div>
       <div class="box-content">
         <div class="form-container">
-          <form>
+          <form @submit.prevent="handleSubmitLogin">
             <label for="email">E-mail</label>
             <base-input 
               class="border-style"
@@ -51,6 +51,12 @@ export default {
       }
     }
   },
+
+  methods: {
+    async handleSubmitLogin() {
+      await this.$store.dispatch('handleSubmitLogin', this.user)
+    }
+  }
 }
 </script>
 
