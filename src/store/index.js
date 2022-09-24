@@ -24,9 +24,17 @@ export default new vuex.Store({
       await Service.login({
         email: user.email,
         password: user.password
-      }).then(res => res.data)
+      }).then(res => {
+        
+        if (res.status === 200) {
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('session_id', res.data.userAuth._id)
+        }
+      })
 
-      commit('authLogin', res.data)
+      commit('authLogin', user)
+
+      window.location.replace('/#/admin/overview')
     }
 
   },
