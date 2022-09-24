@@ -6,6 +6,6 @@ export default {
   },
 
   login: (data) => {
-    return http.post('/usuariosauth') 
+    return http.post('/usuariosauth', data) 
   }
 }
