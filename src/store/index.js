@@ -17,26 +17,31 @@ export default new vuex.Store({
     authLogin(state, payload) {
       state.access_token = payload.access_token
       state.user = payload.user
+    },
+
+    storeUser(state) {
+      console.log(state)
     }
+
   },
   actions: {
-    async handleSubmitLogin( { commit }, user ) {
-      await Service.login({
+    handleSubmitLogin( { commit }, user ) {
+      Service.login({
         name: user.name,
         email: user.email,
         password: user.password
-      }).then(res => {
-        
-        console.log(res.data, user);
+
+      }).then(res => {        
+        //console.log(res.data);
         if (res.status === 200) {
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('session_id', res.data.userAuth._id)
         }
       })
 
-      commit('authLogin', user)
+      //commit('authLogin', user)
 
-      window.location.replace('/#/admin/overview')
+      //window.location.replace('/#/admin/overview')
     }
   },
   modules:{}
