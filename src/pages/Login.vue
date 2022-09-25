@@ -54,7 +54,8 @@ export default {
 
   methods: {
     async handleSubmitLogin() {
-      await this.$store.dispatch('handleSubmitLogin', this.user)
+      const parseUser = JSON.parse(JSON.stringify(this.user))
+      await this.$store.dispatch('handleSubmitLogin', parseUser)
     }
   }
 }
