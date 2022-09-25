@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dashboard</a>
+      <a class="navbar-brand" href="#">Dashboard {{ this.$store.state.user }}</a>
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -55,9 +55,9 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <div class="nav-link cursor" @click="logout">
               Log out
-            </a>
+            </div>
           </li>
         </ul>
       </div>
@@ -65,12 +65,13 @@
   </nav>
 </template>
 <script>
+  //import { mapMutations, mapState } from 'vuex'
   export default {
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
     },
     data () {
       return {
@@ -78,6 +79,10 @@
       }
     },
     methods: {
+      logout() {
+        localStorage.clear()
+        this.$router.push('/login')
+      },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
@@ -98,5 +103,7 @@
 
 </script>
 <style>
-
+.cursor {
+  cursor: pointer;
+}
 </style>
