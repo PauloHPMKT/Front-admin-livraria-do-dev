@@ -22,10 +22,12 @@ export default new vuex.Store({
   actions: {
     async handleSubmitLogin( { commit }, user ) {
       await Service.login({
+        name: user.name,
         email: user.email,
         password: user.password
       }).then(res => {
         
+        console.log(res.data, user);
         if (res.status === 200) {
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('session_id', res.data.userAuth._id)
@@ -36,7 +38,6 @@ export default new vuex.Store({
 
       window.location.replace('/#/admin/overview')
     }
-
   },
   modules:{}
 })
