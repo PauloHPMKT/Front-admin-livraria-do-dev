@@ -35,8 +35,6 @@ export default new vuex.Store({
         commit('authLogin', res.data.userAuth)
         window.location.replace('/#/admin/overview')
       })
-
-
     }
   },
   modules:{}

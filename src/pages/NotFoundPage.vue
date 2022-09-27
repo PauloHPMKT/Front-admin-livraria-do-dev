@@ -5,7 +5,7 @@
     </div>
     <div class="align-text">
       <h2>Página não encontrada</h2>
-      <p>Desculpe, nós não conseguimos a página que voce está procurando. <span>Sugerimos que retorne para a sessão de login.</span></p>
+      <p>Desculpe, não conseguimos encontrar a página que voce está procurando. <span>Sugerimos que retorne para a sessão de login.</span></p>
 
       <router-link to="/login">Vá para o login</router-link>
     </div>
