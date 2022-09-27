@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dashboard {{ nameUserStorage }}</a>
+      <router-link to="/admin/user" class="navbar-brand innerspacing">Dashboard {{ nameUserStorage }}</router-link>
     
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <div class="cursor" @click="logout">
+            <div class="cursor-type" @click="logout">
               Log out
             </div>
           </li>
@@ -16,7 +16,6 @@
   </nav>
 </template>
 <script>
-  //import { mapMutations, mapState } from 'vuex'
   export default {
     computed: {
       routeName () {
@@ -59,7 +58,11 @@
 
 </script>
 <style lang="scss">
-.cursor {
+.innerspacing {
+  padding: 10px;
+  color: #fff;
+}
+.cursor-type {
   cursor: pointer;
   color: #5e5e5e;
   border-radius: 5px;
@@ -68,7 +71,7 @@
   transition: .4s ease;
 }
 
-.cursor:hover {
+.cursor-type:hover {
   background-color: #184dc0;
   color: #fff;
 }
