@@ -4,7 +4,7 @@
       <div class="box-content inner-info">
         <img src="/img/logo-livraria-do-dev-removebg.png" alt="logo principal livraria do dev">
         <div>
-          <h1>Portal do administrador {{ $store.state.user.name }}</h1>
+          <h1>Portal do administrador</h1>
           <p>Acesse seu ambiente de gestão da livraria do dev</p>
         </div>
       </div>
