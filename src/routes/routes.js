@@ -73,11 +73,6 @@ const routes = [
         component: LogsReports,
       },
       {
-        path: 'table-list',
-        name: 'Table List',
-        component: TableList
-      },
-      {
         path: 'typography',
         name: 'Typography',
         component: Typography
