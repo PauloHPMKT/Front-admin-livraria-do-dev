@@ -11,6 +11,9 @@
               <h4 class="card-title">Relatório de usuários</h4>
               <p class="card-category">Usuários disponíveis na plataforma</p>
             </template>
+            <template>
+              <actions-bar />
+            </template>
             <table class="table">
               <thead>
                 <tr>
@@ -24,6 +27,11 @@
                 <tr>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
+                  <td>
+                    <div id="actions-op">
+                      <i class="nc-icon nc-settings-gear-64"></i>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -37,12 +45,14 @@
 import LTable from 'src/components/Table.vue'
 import Card from 'src/components/Cards/Card.vue'
 import Service from '../services/axios-requests'
-const tableColumns = ['Nome', 'E-mail']
+import ActionsBar from '../components/ActionsBar.vue'
+const tableColumns = ['Nome', 'E-mail', 'Acoes']
 
 export default {
   components: {
     LTable,
-    Card
+    Card,
+    ActionsBar
   },
   data () {
     return {
@@ -65,4 +75,20 @@ export default {
 }
 </script>
 <style>
+#actions-op {
+  background-color: #80808049;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.384);
+  transition: .4s ease;
+  cursor: pointer;
+}
+
+#actions-op:hover {
+  background-color: #80808068;
+}
 </style>
