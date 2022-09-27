@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <router-link to="/admin/user" class="navbar-brand innerspacing">Dashboard {{ nameUserStorage }}</router-link>
+      <router-link to="/admin/user" class="navbar-brand innerspacing">Livraria do Dev {{ nameUserStorage }}</router-link>
     
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav ml-auto">
