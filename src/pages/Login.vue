@@ -53,16 +53,13 @@ export default {
   },
 
   methods: {
-    async handleSubmitLogin() {
-      const parseUser = JSON.parse(JSON.stringify(this.user))
-      await this.$store.dispatch('handleSubmitLogin', parseUser)
+    handleSubmitLogin() {
+      this.$store.dispatch('handleSubmitLogin', this.user)
     }
   },
 
   mounted() {
     console.log(this.$store)
-    console.log(this.parseUser)
-
   }
 }
 </script>

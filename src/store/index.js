@@ -7,41 +7,36 @@ Vue.use(vuex)
 export default new vuex.Store({
   state: {
     user: {
-      name: '',
       email: '',
       password: '',
     },
-    access_token: '',
+    token: '',
   },
   mutations: {
     authLogin(state, payload) {
-      state.access_token = payload.access_token
-      state.user = payload.user
+      state.user = payload
     },
-
-    storeUser(state) {
-      console.log(state)
-    }
-
   },
   actions: {
     handleSubmitLogin( { commit }, user ) {
       Service.login({
-        name: user.name,
         email: user.email,
         password: user.password
 
       }).then(res => {        
-        //console.log(res.data);
         if (res.status === 200) {
-          localStorage.setItem('token', res.data.token)
-          localStorage.setItem('session_id', res.data.userAuth._id)
+          if (res.data.token) {
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('email', res.data.userAuth.email)
+            localStorage.setItem('name', res.data.userAuth.name)
+          }
         }
+
+        commit('authLogin', res.data.userAuth)
+        window.location.replace('/#/admin/overview')
       })
 
-      //commit('authLogin', user)
 
-      //window.location.replace('/#/admin/overview')
     }
   },
   modules:{}
