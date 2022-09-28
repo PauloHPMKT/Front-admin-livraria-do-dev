@@ -7,5 +7,9 @@ export default {
 
   login: (data) => {
     return http.post('/usuariosauth', data) 
+  },
+
+  remove: (id) => {
+    return http.delete(`/usuarios/${id}`)
   }
 }
