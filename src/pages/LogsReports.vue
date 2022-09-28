@@ -1,15 +1,16 @@
 <template>
-  <div class="card content">
-    <card class="bg-color">
-      <template slot="header">
-        <h4>Gerenciamento de logs</h4>
-        <p>Relatório de logs dos usuários logado na plataforma</p>
-      </template>
-      <ul class="report-content">
-        <li v-for="session in sessions" :key="session._id">{{ session.userKey }}</li>
-      </ul>
-    </card>
-      
+  <div class="content">
+    <div class="container-fluid">
+      <card class="bg-color">
+        <template slot="header">
+          <h4 class="card-title">Gerenciamento de logs</h4>
+          <p class="card-category">Relatório de logs dos usuários logado na plataforma</p>
+        </template>
+        <ul class="report-content">
+          <li v-for="session in sessions" :key="session._id">{{ session.userKey }}</li>
+        </ul>
+      </card>
+    </div>      
   </div>
 </template>
 
@@ -43,11 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bg-color h4 {
-  margin: 0 0 10px;
-  font-weight: 500;
-}
-
 .report-content {
   padding: 10px 0;
 }
