@@ -23,17 +23,17 @@
               <div class="users-table-row" v-for="user in users" :key="user._id">
                 <div>{{ user.name }}</div>
                 <div>{{ user.email }}</div> 
-                <div id="actions-op" @click="showChooseModal(user._id)"> 
-                  <i 
-                    class="nc-icon nc-settings-gear-64"
-                  ></i>
+                <div id="items-alignment">
+                  <div id="actions-op" @click="showChooseModal(user._id)"> 
+                    <i class="nc-icon nc-settings-gear-64"></i>
+                  </div> 
+                </div>
                   <choose-modal 
                     :data="user.name"
                     v-if="hiddenChooseModal && id === user._id"
                     @removeUser="deleteUser(user._id)"
                     @closeModal="hiddenModal"
                   />  
-                </div> 
               </div>
             </div>
           </card>
@@ -48,7 +48,6 @@ import Card from 'src/components/Cards/Card.vue'
 import Service from '../services/axios-requests'
 import ActionsBar from '../components/ActionsBar.vue'
 import ChooseModal from '../components/ChooseModal.vue'
-const tableColumns = ['Nome', 'E-mail', 'Acoes']
 
 export default {
   components: {
@@ -59,7 +58,6 @@ export default {
   },
   data () {
     return {
-      columns: [...tableColumns],
       users: [],
       hiddenChooseModal: false,
       id: 0
@@ -97,6 +95,9 @@ export default {
 }
 </script>
 <style>
+#items-alignment {
+  display: flex;
+}
 #actions-op {
   background-color: #80808049;
   display: flex;
