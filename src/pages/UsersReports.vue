@@ -14,27 +14,28 @@
             <template>
               <actions-bar />
             </template>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th 
-                    v-for="(column, index) in columns" 
-                    :key="index">{{ column }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody v-for="user in users" :key="user._id">
-                <tr>
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>
-                    <div id="actions-op">
-                      <i class="nc-icon nc-settings-gear-64"></i>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div id="users-table-header">
+              <div>Nome</div>
+              <div>E-mail</div>
+              <div>Acoes</div>
+            </div>
+            <div id="users-table-rows">
+              <div class="users-table-row" v-for="user in users" :key="user._id">
+                <div>{{ user.name }}</div>
+                <div>{{ user.email }}</div> 
+                <div id="actions-op" @click="showChooseModal(user._id)"> 
+                  <i 
+                    class="nc-icon nc-settings-gear-64"
+                  ></i>
+                  <choose-modal 
+                    :data="user.name"
+                    v-if="hiddenChooseModal && id === user._id"
+                    @removeUser="deleteUser(user._id)"
+                    @closeModal="hiddenModal"
+                  />  
+                </div> 
+              </div>
+            </div>
           </card>
         </div>
       </div>
@@ -46,18 +47,22 @@ import LTable from 'src/components/Table.vue'
 import Card from 'src/components/Cards/Card.vue'
 import Service from '../services/axios-requests'
 import ActionsBar from '../components/ActionsBar.vue'
+import ChooseModal from '../components/ChooseModal.vue'
 const tableColumns = ['Nome', 'E-mail', 'Acoes']
 
 export default {
   components: {
     LTable,
     Card,
-    ActionsBar
+    ActionsBar,
+    ChooseModal
   },
   data () {
     return {
       columns: [...tableColumns],
       users: [],
+      hiddenChooseModal: false,
+      id: 0
     }
   },
   methods: {
@@ -65,6 +70,23 @@ export default {
       Service.listar().then(res => {
         const dataParse = JSON.parse(JSON.stringify(res.data))
         this.users = dataParse
+      })
+    },
+
+    showChooseModal(id) {
+      this.hiddenChooseModal = !this.hiddenChooseModal
+      this.id = id
+    },
+
+    hiddenModal() {
+      if (this.hiddenChooseModal) return false
+    },
+
+    deleteUser(id) {
+      Service.remove(id).then(res => {
+        if (res.status === 200) {
+          this.listUsers()
+        }
       })
     }
   },
@@ -90,5 +112,29 @@ export default {
 
 #actions-op:hover {
   background-color: #80808068;
+}
+
+#users-table-header, 
+#users-table-rows,
+.users-table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#users-table-header {
+  font-weight: normal;
+  padding: 12px;
+  color: rgb(146, 146, 146);
+  border-bottom: 2px solid rgb(146, 146, 146);
+}
+#users-table-header div,
+.users-table-row div {
+  width: 19%;
+}
+.users-table-row {
+  width: 100%;
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
 }
 </style>
