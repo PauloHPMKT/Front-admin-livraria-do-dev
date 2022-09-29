@@ -12,7 +12,7 @@
 export default {
   name: 'ChooseModal',
   props: {
-    data: Array
+    data: String
   },
   emits: ['removeUser', 'closeModal']
 }
