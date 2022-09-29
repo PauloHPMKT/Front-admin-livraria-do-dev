@@ -6,12 +6,12 @@
       placeholder="Procure por um usuário"
     />
     <button 
-      class="btn-style"
-      @click="teste"  
+      class="btn btn-primary btn-style"
     >Pesquisa
     </button>
-    <button
-      class="btn-style"
+    <button 
+      class="btn btn-primary btn-style" 
+      @click="$emit(addNewUser)"
     >
     Adicionar novo usuário
     <i class="nc-icon nc-simple-add"></i>
@@ -22,6 +22,7 @@
 <script>
 export default {
   name: 'ActionsBar',
+  emits: ['addNewUser'],
   data() {
     return {
       user: {
@@ -56,6 +57,8 @@ export default {
     padding: 7px 12px;
     border-radius: 5px;
     margin-right: 5px;
+    background-color: #0044aa;
+    color: #fff;
   
     i {
       margin-left: 10px;
