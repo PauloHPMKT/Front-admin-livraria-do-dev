@@ -5,6 +5,10 @@ export default {
     return http.get('/usuarios') 
   },
 
+  create: (data) => {
+    return http.post('/usuarios', data)
+  },
+
   login: (data) => {
     return http.post('/usuariosauth', data) 
   },
