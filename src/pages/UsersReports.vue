@@ -14,28 +14,39 @@
             <template>
               <actions-bar />
             </template>
-            <div id="users-table-header">
-              <div>Nome</div>
-              <div>E-mail</div>
-              <div>Acoes</div>
-            </div>
-            <div id="users-table-rows">
-              <div class="users-table-row" v-for="user in users" :key="user._id">
-                <div>{{ user.name }}</div>
-                <div>{{ user.email }}</div> 
-                <div id="items-alignment">
-                  <div id="actions-op" @click="showChooseModal(user._id)"> 
-                    <i class="nc-icon nc-settings-gear-64"></i>
-                  </div> 
+            <div class="table-content">
+              <div id="users-table-header">
+                <div>Nome</div>
+                <div>E-mail</div>
+                <div>Acoes</div>
+              </div>
+              <div id="users-table-rows">
+                <div class="users-table-row" v-for="user in users" :key="user._id">
+                  <div>{{ user.name }}</div>
+                  <div>{{ user.email }}</div> 
+                  <div id="items-alignment">
+                    <div class="actions-op" @click="showChooseModal(user._id)"> 
+                      <font-awesome-icon icon="fa-solid fa-trash" />
+                    </div>
+                    <div class="actions-op" @click="editUser(user._id, user)">
+                      <font-awesome-icon icon="fa-solid fa-file-pen" />
+                    </div> 
+                  </div>
+                    <choose-modal 
+                      :data="user.name"
+                      v-if="hiddenChooseModal && id === user._id"
+                      @removeUser="deleteUser(user._id)"
+                      @closeModal="hiddenModal"
+                    />  
                 </div>
-                  <choose-modal 
-                    :data="user.name"
-                    v-if="hiddenChooseModal && id === user._id"
-                    @removeUser="deleteUser(user._id)"
-                    @closeModal="hiddenModal"
-                  />  
               </div>
             </div>
+            <form-update 
+              v-if="callFormUpdate"
+              :userData="userToUpdate"
+              @updateUser="updateUser"
+              @closeUpdateModal="closeUpdateModal"
+            />
           </card>
         </div>
       </div>
@@ -48,19 +59,27 @@ import Card from 'src/components/Cards/Card.vue'
 import Service from '../services/axios-requests'
 import ActionsBar from '../components/ActionsBar.vue'
 import ChooseModal from '../components/ChooseModal.vue'
+import FormUpdate from '../components/FormUpdate.vue'
 
 export default {
   components: {
     LTable,
     Card,
     ActionsBar,
-    ChooseModal
+    ChooseModal,
+    FormUpdate,
   },
   data () {
     return {
       users: [],
+      userToUpdate: { 
+        name: '', 
+        email: '' 
+      },
       hiddenChooseModal: false,
-      id: 0
+      callFormUpdate: false,
+      id: 0,
+      update_id: null
     }
   },
   methods: {
@@ -76,8 +95,40 @@ export default {
       this.id = id
     },
 
+    editUser(id, user) {
+      this.callFormUpdate = !this.callFormUpdate
+      console.log(id, user.name)
+      console.log(id, user.name)
+      this.userToUpdate.name = user.name
+      this.userToUpdate.email = user.email
+
+      console.log(this.userToUpdate.name)
+
+      this.update_id = id
+    },
+
     hiddenModal() {
-      if (this.hiddenChooseModal) return false
+      this.hiddenChooseModal = false
+    },
+
+    closeUpdateModal() {
+      this.callFormUpdate = false
+    },
+
+    updateUser(user) {
+      console.log(user)
+      const id = this.update_id
+
+      const parseUser = JSON.parse(JSON.stringify(user))
+
+      Service.update(parseUser, id).then(res => {
+        if (res.status === 200) {
+          console.log(res.data.user, res.status)
+          this.listUsers()
+        }
+      })
+
+      this.callFormUpdate = false
     },
 
     deleteUser(id) {
@@ -95,15 +146,20 @@ export default {
 }
 </script>
 <style>
+.table-content {
+  padding-left: 30px;
+}
+
 #items-alignment {
   display: flex;
 }
-#actions-op {
+.actions-op {
   background-color: #80808049;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin: 3px;
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.384);
@@ -111,8 +167,14 @@ export default {
   cursor: pointer;
 }
 
-#actions-op:hover {
-  background-color: #80808068;
+.actions-op:first-child:hover {
+  background-color: red;
+  color: #fff;
+}
+
+.actions-op:last-child:hover {
+  background-color: #009acc;
+  color: #fff;
 }
 
 #users-table-header, 
