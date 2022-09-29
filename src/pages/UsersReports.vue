@@ -12,7 +12,12 @@
               <p class="card-category">Usuários disponíveis na plataforma</p>
             </template>
             <template>
-              <actions-bar />
+              <actions-bar 
+                @addNewUser="hiddenFormUser"
+              />
+              <form-user-data 
+                v-if="callFormUser"
+              />
             </template>
             <div class="table-content">
               <div id="users-table-header">
@@ -60,6 +65,7 @@ import Service from '../services/axios-requests'
 import ActionsBar from '../components/ActionsBar.vue'
 import ChooseModal from '../components/ChooseModal.vue'
 import FormUpdate from '../components/FormUpdate.vue'
+import FormUserData from '../components/FormUserData.vue'
 
 export default {
   components: {
@@ -68,6 +74,7 @@ export default {
     ActionsBar,
     ChooseModal,
     FormUpdate,
+    FormUserData,
   },
   data () {
     return {
@@ -78,6 +85,7 @@ export default {
       },
       hiddenChooseModal: false,
       callFormUpdate: false,
+      callFormUser: false,
       id: 0,
       update_id: null
     }
@@ -88,6 +96,11 @@ export default {
         const dataParse = JSON.parse(JSON.stringify(res.data))
         this.users = dataParse
       })
+    },
+
+    hiddenFormUser() {
+      console.log('teste')
+      this.callFormUser = !this.callFormUser
     },
 
     showChooseModal(id) {
