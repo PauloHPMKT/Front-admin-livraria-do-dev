@@ -1,27 +1,30 @@
 <template>
   <div class="content card form-content">
+    <div class="icon-close" @click="$emit('closeFormUser')">
+      <font-awesome-icon icon="fa-solid fa-xmark" />
+    </div>
     <div class="icon-container">
       <font-awesome-icon icon="fa-solid fa-user-plus" />
     </div>
-    <form>
+    <form @submit.prevent="$emit('handleSubmitUser', user)">
       <label for="name">Nome</label>
       <base-input 
         id="name"
-        text="text"
+        type="text"
         placeholder="Nome do usuário"
         v-model="user.name"
       />
       <label for="email">E-mail</label>
       <base-input 
         id="email"
-        text="text"
+        type="text"
         placeholder="E-mail do usuário"
         v-model="user.email"
       />
       <label for="password">Senha</label>
       <base-input 
         id="password"
-        text="password"
+        type="password"
         placeholder="Digite uma senha valida"
         v-model="user.password"
       />
@@ -45,7 +48,6 @@ export default {
       }
     }
   }
-
 }
 </script>
 
@@ -62,9 +64,37 @@ export default {
   animation: blow .5s ease-in-out;
 }
 
+@keyframes blow {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.0) translate(-50%, -50%);
+  }
+  70% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.2) translate(-50%, -50%);
+  }
+  100% {
+    transform: scale(1.1) translate(-50%, -50%);
+  }
+}
+
+.icon-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.icon-close svg {
+  font-size: 25px;
+  color: #0044aa;
+}
+
 .icon-container {
   width: 100%;
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
 .icon-container svg {
