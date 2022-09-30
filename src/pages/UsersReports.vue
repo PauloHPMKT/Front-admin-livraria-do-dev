@@ -17,6 +17,8 @@
               />
               <form-user-data 
                 v-if="callFormUser"
+                @closeFormUser="closeModal"
+                @handleSubmitUser="submitNewUser"
               />
             </template>
             <div class="table-content">
@@ -107,6 +109,21 @@ export default {
       this.id = id
     },
 
+    closeModal() {
+      this.callFormUser = false
+    },
+
+    submitNewUser(user) {
+      Service.create(user).then(res => {
+        if (res.status === 201) {
+          this.listUsers()
+        }
+        console.log(res.status)
+      })
+
+      this.callFormUser = false
+    },
+
     editUser(id, user) {
       this.callFormUpdate = !this.callFormUpdate
       console.log(id, user.name)
@@ -135,7 +152,6 @@ export default {
 
       Service.update(parseUser, id).then(res => {
         if (res.status === 200) {
-          console.log(res.data.user, res.status)
           this.listUsers()
         }
       })
