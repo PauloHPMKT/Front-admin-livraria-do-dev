@@ -11,7 +11,7 @@
     </button>
     <button 
       class="btn btn-primary btn-style" 
-      @click="$emit(addNewUser)"
+      @click="$emit('addNewUser')"
     >
     Adicionar novo usuário
     <i class="nc-icon nc-simple-add"></i>
