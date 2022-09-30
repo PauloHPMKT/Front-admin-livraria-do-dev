@@ -99,7 +99,6 @@ export default {
     },
 
     hiddenFormUser() {
-      console.log('teste')
       this.callFormUser = !this.callFormUser
     },
 
