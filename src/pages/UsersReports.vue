@@ -21,11 +21,12 @@
                 @handleSubmitUser="submitNewUser"
               />
             </template>
+            <!--<table-view 
+              :columns="this.table.columns"
+              :data="this.users"
+            />-->
             <div class="table-content">
               <div id="users-table-header">
-                <div>Nome</div>
-                <div>E-mail</div>
-                <div>Acoes</div>
               </div>
               <div id="users-table-rows">
                 <div class="users-table-row" v-for="user in users" :key="user._id">
@@ -44,7 +45,7 @@
                       v-if="hiddenChooseModal && id === user._id"
                       @removeUser="deleteUser(user._id)"
                       @closeModal="hiddenModal"
-                    />  
+                    />
                 </div>
               </div>
             </div>
@@ -68,6 +69,7 @@ import ActionsBar from '../components/ActionsBar.vue'
 import ChooseModal from '../components/ChooseModal.vue'
 import FormUpdate from '../components/FormUpdate.vue'
 import FormUserData from '../components/FormUserData.vue'
+import TableView from '../components/TableView.vue'
 
 export default {
   components: {
@@ -77,9 +79,13 @@ export default {
     ChooseModal,
     FormUpdate,
     FormUserData,
+    TableView,
   },
   data () {
     return {
+      table: {
+        columns: ['Nome', 'Email', 'Acoes'],
+      },
       users: [],
       userToUpdate: { 
         name: '', 
@@ -170,6 +176,8 @@ export default {
 
   mounted() {
     this.listUsers()
+
+    console.log(this.usersTable)
   }
 }
 </script>
