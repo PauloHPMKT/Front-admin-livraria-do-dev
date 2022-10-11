@@ -27,6 +27,12 @@ const guard = () => (to, from, next) => {
 
 const routes = [
   {
+    path: '/',
+    name: 'Login',
+    component: Login,
+    redirect: '/Login',
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login,
