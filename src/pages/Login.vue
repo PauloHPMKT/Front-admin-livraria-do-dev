@@ -1,35 +1,37 @@
 <template>
   <div class="main-container">
     <main>
-      <div class="box-content inner-info">
-        <img src="/img/logo-livraria-do-dev-removebg.png" alt="logo principal livraria do dev">
-        <div>
-          <h1>Portal do administrador</h1>
-          <p>Acesse seu ambiente de gestão da livraria do dev</p>
-        </div>
-      </div>
       <div class="box-content">
         <div class="form-container">
+          <div class="image-container">
+            <img src="/img/logo-livraria-do-dev-removebg.png" alt="logo principal livraria do dev">
+          </div>
+          <div class="title-content">
+            <h1>Portal do administrador</h1>
+            <p>Acesse seu ambiente de gestão da livraria do dev</p>
+          </div>
           <form @submit.prevent="handleSubmitLogin">
             <label for="email">E-mail</label>
-            <base-input 
-              class="border-style"
-              id="email"
-              type="text"
-              placeholder="meuemail@example.com"
-              v-model="user.email"
-              :addonLeftIcon="'nc-icon nc-email-83'"
-            />
+              <input 
+                class="inputs-style"
+                id="email"
+                type="text"
+                placeholder="meuemail@example.com"
+                v-model="user.email"
+              />
 
             <label for="password">Senha</label>
-            <base-input 
-              class="border-style"
-              id="password"
-              type="password"
-              placeholder="digite sua senha"
-              v-model="user.password"
-              :addonLeftIcon="'nc-icon nc-lock-circle-open'"
-            />
+            <div class="inputs-style">            
+              <input 
+                id="password"
+                :type="inputType"
+                placeholder="digite sua senha"
+                v-model="user.password"
+              />
+              <password-reveling 
+                @teste_de_click="teste"
+              />
+            </div>
             <button type="submit" class="btn btn-primary">Login</button>
           </form>
         </div>
@@ -39,22 +41,31 @@
 </template>
 
 <script>
-import BaseInput from '../components/Inputs/BaseInput.vue'
+import PasswordReveling from '../components/PasswordReveling.vue'
 export default {
+  components: { PasswordReveling },
   name: 'Login',
-  components: { BaseInput },
   data() {
     return {
       user: {
         email: '',
         password: '',
-      }
+      },
+      inputType: 'password',
     }
+  },
+
+  computed: {
+
   },
 
   methods: {
     handleSubmitLogin() {
       this.$store.dispatch('handleSubmitLogin', this.user)
+    },
+
+    teste() {
+      alert('testando evento de click')
     }
   },
 
@@ -81,20 +92,48 @@ export default {
     display: flex;
 
     .box-content {
-      width: 50%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       height: 100vh;
 
       .form-container {
+        width: 50%;
         background-color: #ffe7d1;
-        padding: 50px;
+        padding: 0 60px 60px;
         border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-        .border-style {
-          border-radius: 5px;
-          border: 1px solid $dark-gray;
+        .image-container {
+          text-align: center;
+
+          img {
+            width: 210px;
+            height: 200px;
+            filter: drop-shadow(0 0 1px $white-color);
+          }
+        }
+
+        .title-content {
+          margin-bottom: 20px;
+
+          h1 {
+            margin: 0;
+            font-size: 40px;
+          }
+        }
+
+        .inputs-style {
+          width: 100%;
+          height: 50px;
+          padding: 0 12px;
+          border: none;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #808080;
         }
 
         button {
@@ -106,10 +145,7 @@ export default {
       }
     }
 
-    & img {
-      width: 400px;
-      filter: drop-shadow(0 0 1px $white-color);
-    }
+    
 
     & .inner-info {
       color: $white-color;
