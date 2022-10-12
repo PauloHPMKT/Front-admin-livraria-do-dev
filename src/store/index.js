@@ -18,8 +18,9 @@ export default new vuex.Store({
     },
   },
   actions: {
-    handleSubmitLogin( { commit }, user ) {
-      Service.login({
+    /* eslint-disable prettier/prettier */
+    async handleSubmitLogin( { commit }, user ) {
+      await Service.login({
         email: user.email,
         password: user.password
 
