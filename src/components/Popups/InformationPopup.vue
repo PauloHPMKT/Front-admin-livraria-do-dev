@@ -1,8 +1,6 @@
 <template>
   <div class="box">
-    <div>
-      O Usuário não existe
-    </div>
+    <div>{{ message_data }}</div>
     <div id="border"></div>
   </div>
 </template>
@@ -10,6 +8,9 @@
 <script>
 export default {
   name: 'InformationPopup',
+  props: {
+    message_data: String,
+  }
 }
 </script>
 
@@ -19,15 +20,26 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 0 40px;
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 300px;
   height: 100px;
   background: rgb(253, 83, 83);
   color: #fff;
   border-radius: 3px;
+  animation: emerge .4s ease-in-out;
+}
 
+@keyframes emerge {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 #border {
@@ -36,7 +48,7 @@ export default {
   border: 4px solid red;
   position: absolute;
   bottom: 0;
-  animation: slide 4s ease;
+  animation: slide 5s ease;
 }
 
 @keyframes slide {
