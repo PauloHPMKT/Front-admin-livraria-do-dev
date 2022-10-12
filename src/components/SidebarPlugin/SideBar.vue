@@ -9,7 +9,7 @@
       <div class="logo">
         <a href="/#/admin/overview" class="main-logo-container logo__container">
           <div class="logo-img">
-            <img src="img/logo-livraria-do-dev.png" alt="logo livraria do dev">
+            <img src="img/livraria-do-dev-logo.png" alt="logo livraria do dev">
           </div>
         </a>
       </div>

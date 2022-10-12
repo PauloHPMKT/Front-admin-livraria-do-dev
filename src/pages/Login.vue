@@ -29,12 +29,13 @@
                 v-model="user.password"
               />
               <password-reveling 
+                class="password_eye"
                 @toggle="togglePassword"
                 :isPassword="isPasswordVisible"
               />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-          </form>
+          </form> 
         </div>
       </div>
     </main>
@@ -110,11 +111,11 @@ export default {
 
         .image-container {
           text-align: center;
+          padding: 45px;
 
           img {
-            width: 210px;
-            height: 200px;
-            filter: drop-shadow(0 0 1px $white-color);
+            width: 270px;
+            filter: drop-shadow(0 0 5px $white-color);
           }
         }
 
@@ -129,11 +130,19 @@ export default {
 
         .inputs-style {
           width: 100%;
+          background-color: #fff;
           height: 50px;
           padding: 0 12px;
           border: none;
           margin-bottom: 10px;
           border-bottom: 1px solid #808080;
+
+          #password {
+            width: 96%;
+            height: 100%;
+            border: none;
+            outline: none;
+          }
         }
 
         button {
