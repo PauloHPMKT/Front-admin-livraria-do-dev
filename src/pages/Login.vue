@@ -84,11 +84,29 @@ export default {
       }, 2000)
     },
 
-    handleSubmitLogin() {
+    /* eslint-disable prettier/prettier */
+    async handleSubmitLogin() {
       if (this.user.email === '' && this.user.password === '') {
-        this.messageToast('Digite seus dados corretamente')
+        this.messageToast('Digite seus dados corretamente!')
+      } 
+      else if (this.user.email === '') {
+        this.messageToast('Digite um e-mail válido!')
       }
-      this.$store.dispatch('handleSubmitLogin', this.user)
+      else if (this.user.password === '') {
+        this.messageToast('Digite uma senha válida!')
+      } else {
+        await this.$store.dispatch('handleSubmitLogin', this.user)
+        .catch(Error => {
+          if (Error.response.status === 404) {
+            console.error(Error.message, 'Usuario não encontrado')
+            this.messageToast('Usuário não encontrado')
+          } 
+          else {
+            console.error(Error.message, 'Dados Incorretos!')
+            this.messageToast('Dados Incorretos!')
+          }
+        })
+      }
     },
   },
 }
@@ -172,8 +190,6 @@ export default {
         }
       }
     }
-
-    
 
     & .inner-info {
       color: $white-color;
