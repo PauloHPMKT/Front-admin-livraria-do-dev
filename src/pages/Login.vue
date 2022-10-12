@@ -29,7 +29,8 @@
                 v-model="user.password"
               />
               <password-reveling 
-                @teste_de_click="teste"
+                @toggle="togglePassword"
+                :isPassword="isPasswordVisible"
               />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
@@ -56,22 +57,21 @@ export default {
   },
 
   computed: {
-
-  },
-
-  methods: {
-    handleSubmitLogin() {
-      this.$store.dispatch('handleSubmitLogin', this.user)
-    },
-
-    teste() {
-      alert('testando evento de click')
+    isPasswordVisible() {
+      return this.inputType === 'password'
     }
   },
 
-  mounted() {
-    console.log(this.$store)
-  }
+  methods: {
+    togglePassword() {
+      this.inputType = this.isPasswordVisible ? 'text' : 'password'
+    },
+
+    handleSubmitLogin() {
+      this.$store.dispatch('handleSubmitLogin', this.user)
+    },
+  },
+
 }
 </script>
 
