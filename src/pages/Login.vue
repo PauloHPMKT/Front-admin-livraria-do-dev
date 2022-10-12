@@ -12,20 +12,21 @@
           </div>
           <form @submit.prevent="handleSubmitLogin">
             <label for="email">E-mail</label>
+            <div class="inputs-style">
               <input 
-                class="inputs-style"
                 id="email"
                 type="text"
                 placeholder="meuemail@example.com"
                 v-model="user.email"
               />
+            </div>
 
             <label for="password">Senha</label>
             <div class="inputs-style">            
               <input 
                 id="password"
                 :type="inputType"
-                placeholder="digite sua senha"
+                placeholder="**********"
                 v-model="user.password"
               />
               <password-reveling 
@@ -36,6 +37,10 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
           </form> 
+          <information-popup
+            v-if="toastMessageHidden"
+            :message_data="message"
+           />
         </div>
       </div>
     </main>
@@ -44,8 +49,9 @@
 
 <script>
 import PasswordReveling from '../components/PasswordReveling.vue'
+import InformationPopup from '../components/Popups/InformationPopup.vue'
 export default {
-  components: { PasswordReveling },
+  components: { PasswordReveling, InformationPopup },
   name: 'Login',
   data() {
     return {
@@ -54,6 +60,8 @@ export default {
         password: '',
       },
       inputType: 'password',
+      message: '',
+      toastMessageHidden: false,
     }
   },
 
@@ -68,11 +76,21 @@ export default {
       this.inputType = this.isPasswordVisible ? 'text' : 'password'
     },
 
+    messageToast(msg) {
+      this.toastMessageHidden = true
+      this.message = msg
+      setTimeout(() => {
+        this.toastMessageHidden = false
+      }, 2000)
+    },
+
     handleSubmitLogin() {
+      if (this.user.email === '' && this.user.password === '') {
+        this.messageToast('Digite seus dados corretamente')
+      }
       this.$store.dispatch('handleSubmitLogin', this.user)
     },
   },
-
 }
 </script>
 
@@ -136,7 +154,8 @@ export default {
           border: none;
           margin-bottom: 10px;
           border-bottom: 1px solid #808080;
-
+          
+          #email,
           #password {
             width: 96%;
             height: 100%;
