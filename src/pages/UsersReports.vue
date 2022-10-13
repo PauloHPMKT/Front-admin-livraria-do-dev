@@ -27,6 +27,9 @@
             />-->
             <div class="table-content">
               <div id="users-table-header">
+                <div>Nome</div>
+                <div>E-mail</div>
+                <div>Acoes</div>
               </div>
               <div id="users-table-rows">
                 <div class="users-table-row" v-for="user in users" :key="user._id">
@@ -49,6 +52,10 @@
                 </div>
               </div>
             </div>
+            <information-popup 
+              v-if="toastMessageHidden"
+              :message_data="message"
+            />
             <form-update 
               v-if="callFormUpdate"
               :userData="userToUpdate"
@@ -70,6 +77,7 @@ import ChooseModal from '../components/ChooseModal.vue'
 import FormUpdate from '../components/FormUpdate.vue'
 import FormUserData from '../components/FormUserData.vue'
 import TableView from '../components/TableView.vue'
+import InformationPopup from '../components/Popups/InformationPopup.vue'
 
 export default {
   components: {
@@ -80,6 +88,7 @@ export default {
     FormUpdate,
     FormUserData,
     TableView,
+    InformationPopup,
   },
   data () {
     return {
@@ -91,6 +100,8 @@ export default {
         name: '', 
         email: '' 
       },
+      message: '',
+      toastMessageHidden: false,
       hiddenChooseModal: false,
       callFormUpdate: false,
       callFormUser: false,
@@ -99,6 +110,15 @@ export default {
     }
   },
   methods: {
+    messageToast(msg) {
+      this.toastMessageHidden = true
+      this.message = msg
+      setTimeout(() => {
+        this.toastMessageHidden = false
+      }, 2000)
+    },
+
+    //list all
     listUsers() {
       Service.listar().then(res => {
         const dataParse = JSON.parse(JSON.stringify(res.data))
@@ -119,15 +139,55 @@ export default {
       this.callFormUser = false
     },
 
-    submitNewUser(user) {
-      Service.create(user).then(res => {
-        if (res.status === 201) {
+    //create user
+    async submitNewUser(user) {
+      if (!user.name && !user.email && !user.password) {
+        this.messageToast('Preencha todos os campos corretamente!')
+      }
+      else if (!user.name) {
+        this.messageToast('O Campo de nome está vazio!')
+      }
+      else if (!user.email) {
+        this.messageToast('O Campo de e-mail está vazio!')
+      }
+      else if (!user.password) {
+        this.messageToast('O Campo de senha está vazio!')
+      }
+      else {
+        await Service.create(user).then(res => {
+          if (res.status === 201) {
+            this.listUsers()
+            //criar toast de sucesso para usuario cadastrado!!!
+          }
+        })
+        
+        this.callFormUser = false
+      }
+    },
+
+    //update user
+    updateUser(user) {
+      console.log(user)
+      const id = this.update_id
+
+      const parseUser = JSON.parse(JSON.stringify(user))
+
+      Service.update(parseUser, id).then(res => {
+        if (res.status === 200) {
           this.listUsers()
         }
-        console.log(res.status)
       })
 
-      this.callFormUser = false
+      this.callFormUpdate = false
+    },
+
+    //delete user
+    deleteUser(id) {
+      Service.remove(id).then(res => {
+        if (res.status === 200) {
+          this.listUsers()
+        }
+      })
     },
 
     editUser(id, user) {
@@ -149,35 +209,10 @@ export default {
     closeUpdateModal() {
       this.callFormUpdate = false
     },
-
-    updateUser(user) {
-      console.log(user)
-      const id = this.update_id
-
-      const parseUser = JSON.parse(JSON.stringify(user))
-
-      Service.update(parseUser, id).then(res => {
-        if (res.status === 200) {
-          this.listUsers()
-        }
-      })
-
-      this.callFormUpdate = false
-    },
-
-    deleteUser(id) {
-      Service.remove(id).then(res => {
-        if (res.status === 200) {
-          this.listUsers()
-        }
-      })
-    }
   },
 
   mounted() {
     this.listUsers()
-
-    console.log(this.usersTable)
   }
 }
 </script>
