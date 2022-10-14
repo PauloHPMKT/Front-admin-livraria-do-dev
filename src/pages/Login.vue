@@ -86,26 +86,31 @@ export default {
 
     /* eslint-disable prettier/prettier */
     async handleSubmitLogin() {
-      if (this.user.email === '' && this.user.password === '') {
-        this.messageToast('Digite seus dados corretamente!')
-      } 
-      else if (this.user.email === '') {
-        this.messageToast('Digite um e-mail válido!')
-      }
-      else if (this.user.password === '') {
-        this.messageToast('Digite uma senha válida!')
-      } else {
+      try {
         await this.$store.dispatch('handleSubmitLogin', this.user)
-        .catch(Error => {
-          if (Error.response.status === 404) {
-            console.error(Error.message, 'Usuario não encontrado')
-            this.messageToast('Usuário não encontrado')
-          } 
-          else {
-            console.error(Error.message, 'Dados Incorretos!')
-            this.messageToast('Dados Incorretos!')
-          }
-        })
+      } catch (error) {
+        const serverMessageError = error.response.data.message
+        
+        if (this.user.email === '' && this.user.password === '') {
+          console.error(error.message)
+          this.messageToast(serverMessageError)
+        }
+        else if (!this.user.email) {
+          console.error(error.message)
+          this.messageToast(serverMessageError)
+        }
+        else if (!this.user.password) {
+          console.error(error.message)
+          this.messageToast(serverMessageError)
+        }
+        else if (error.response.status === 422) {
+          console.error(error.message)
+          this.messageToast(serverMessageError)
+        }
+        else {
+          console.error(error.message)
+          this.messageToast(serverMessageError)
+        }
       }
     },
   },
