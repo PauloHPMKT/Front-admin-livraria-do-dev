@@ -217,10 +217,6 @@ export default {
 }
 </script>
 <style>
-.table-content {
-  padding-left: 30px;
-}
-
 #items-alignment {
   display: flex;
 }
