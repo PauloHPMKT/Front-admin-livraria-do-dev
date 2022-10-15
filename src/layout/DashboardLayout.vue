@@ -7,49 +7,82 @@
       <ul class="menu-sidebar-links">
         <li>
           <sidebar-link to="/admin/overview">
-            <i class="nc-icon nc-chart-pie-35"></i>
+            <font-awesome-icon 
+              class="icon-sidebar" 
+              icon="fa-solid fa-chart-line" 
+            />
             <p>Dashboard</p>
           </sidebar-link>
         </li>
         <li>
           <sidebar-link to="/admin/user">
-            <i class="nc-icon nc-circle-09"></i>
+            <font-awesome-icon 
+              class="icon-sidebar"
+              icon="fa-solid fa-address-card" 
+            />
             <p>User Profile</p>
           </sidebar-link>
         </li>
         <li>
           <sidebar-link to="/admin/users">
-            <i class="nc-icon nc-single-02"></i>
+            <font-awesome-icon 
+              class="icon-sidebar"
+              icon="fa-solid fa-user" 
+            />
             <p>Listar usuários</p>
           </sidebar-link>
         </li>
         <li>
           <sidebar-link to="/admin/maps">
-            <i class="nc-icon nc-pin-3"></i>
-            <p>Encontre um cinema</p>
+            <font-awesome-icon  
+              class="icon-sidebar"
+              icon="fa-solid fa-location-dot"
+            />
+            <p>Encontre uma livraria</p>
+          </sidebar-link>
+        </li>
+        <li>
+          <sidebar-link to="/admin/books">
+            <font-awesome-icon  
+              class="icon-sidebar"
+              icon="fa-solid fa-book"
+            />
+            <p>Livros</p>
           </sidebar-link>
         </li>
         <li>
           <sidebar-link to="/admin/reports">
-            <i class="nc-icon nc-notes"></i>
-            <p>Relatórios</p>
+            <font-awesome-icon  
+              class="icon-sidebar"
+              icon="fa-solid fa-list-check"
+            />
+            <p>Gerenciamento</p>
           </sidebar-link>
           <ul class="submenu">
             <li>
-              <sidebar-link to="/admin/books">
-                <i class="nc-icon nc-tv-2"></i>
-                <p>Livros</p>
+              <sidebar-link to="/admin/publishin">
+                <font-awesome-icon 
+                  class="icon-sidebar"
+                  icon="fa-solid fa-newspaper" 
+                />
+                <p>Editoras</p>
               </sidebar-link>
             </li>
             <li>
               <sidebar-link to="/admin/comments">
-                <i class="nc-icon nc-quote"></i>
+                <font-awesome-icon  
+                  class="icon-sidebar"
+                  icon="fa-solid fa-comments"
+                />
                 <p>Comentários</p>
               </sidebar-link>
             </li>
             <li>
               <sidebar-link to="/admin/logs">
-                <i class="nc-icon nc-check-2"></i>
+                <font-awesome-icon 
+                  icon="fa-solid fa-plug" 
+                  class="icon-sidebar"
+                />
                 <p>Usuarios online</p>
               </sidebar-link>
             </li>
@@ -97,7 +130,12 @@ export default {
 ul {
   list-style: none;
   padding: 0;
-}          
+}        
+
+ul .icon-sidebar {
+  font-size: 25px;
+  margin-right: 14px; 
+}
 
 .submenu {
   display: none;
