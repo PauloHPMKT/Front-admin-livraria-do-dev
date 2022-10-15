@@ -13,6 +13,7 @@
             </template>
             <template>
               <actions-bar 
+                :data_action="action_message"
                 @addNewUser="hiddenFormUser"
               />
               <form-user-data 
@@ -101,6 +102,7 @@ export default {
         email: '' 
       },
       message: '',
+      action_message: 'Adicionar novo usuário',
       toastMessageHidden: false,
       hiddenChooseModal: false,
       callFormUpdate: false,
