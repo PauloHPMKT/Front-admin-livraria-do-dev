@@ -11,7 +11,7 @@
     </button>
     <button 
       class="btn btn-primary btn-style" 
-      @click="$emit('addNewUser')"
+      @click="$emit('add_new_data')"
     >
     {{ data_action }}
     <i class="nc-icon nc-simple-add"></i>
@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'ActionsBar',
-  emits: ['addNewUser'],
+  emits: ['add_new_data'],
   props: {
     data_action: String,
   },

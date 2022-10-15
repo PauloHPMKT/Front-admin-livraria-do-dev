@@ -14,7 +14,7 @@
             <template>
               <actions-bar 
                 :data_action="action_message"
-                @addNewUser="hiddenFormUser"
+                @add_new_data="hiddenFormUser"
               />
               <form-user-data 
                 v-if="callFormUser"
