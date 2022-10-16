@@ -16,9 +16,14 @@
                 :data_action="action_message"
               />
             </template> 
-            <div class="table-content">
-            </div> 
           </card>  
+          <div class="table-content card">
+            <div class="container-box card"> 
+              <ul>
+                <li v-for="book in books" :key="book._id">{{ book.title }}</li>
+              </ul>
+            </div>
+          </div> 
         </div>
       </div>
     </div>
@@ -26,6 +31,7 @@
 </template>
 
 <script>
+import ServiceBooks from '../services/axios-books.request'
 import ActionsBar from '../components/ActionsBar.vue'
 import Card from "../components/Cards/Card.vue"
 
@@ -34,10 +40,31 @@ export default {
   components: { Card, ActionsBar }, 
   data() {
     return {
+      books: [],
       action_message: 'Adicionar novo livro'
     }
+  },
+
+  methods: {
+    async listAllBooks() {
+      await ServiceBooks.listBooks().then(res => {
+        this.books = res.data
+      })
+    }
+  },
+
+  mounted() {
+    this.listAllBooks()
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container-box {
+  padding: 20px 0;
+
+  ul {
+    padding: 0 20px;
+  }
+}
+</style>
