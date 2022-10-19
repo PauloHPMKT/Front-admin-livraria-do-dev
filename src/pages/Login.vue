@@ -67,13 +67,13 @@ export default {
 
   computed: {
     isPasswordVisible() {
-      return this.inputType === 'password'
+      return this.inputType === 'text'
     }
   },
 
   methods: {
     togglePassword() {
-      this.inputType = this.isPasswordVisible ? 'text' : 'password'
+      this.inputType = this.isPasswordVisible ? 'password' : 'text'
     },
 
     messageToast(msg) {

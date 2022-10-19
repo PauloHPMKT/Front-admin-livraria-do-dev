@@ -21,16 +21,16 @@
             <ul>
               <li v-for="book in books" :key="book._id">
                 <card>
-                  <div class="book-commands">
+                  <div class="book-commands" @click="rollingBookDescription(book._id)">
                     <div class="book-description">
                       <h3>{{ book.title }}</h3>
-                      <p>{{ book.plot }}</p>
+                      <p v-if="hiddenPlot">{{ book.plot }}</p>
                     </div>
                     <div class="icon-menu">
                       <font-awesome-icon icon="fa-solid fa-bars" />
                     </div>
                   </div>
-                  <div class="card-book">
+                  <div class="card-book" v-if="hiddenBookDescription">
                     <div class="book-image">
                       <img :src="book.poster" alt="imagem do livro" />
                     </div>
@@ -78,7 +78,10 @@ export default {
   data() {
     return {
       books: [],
-      action_message: 'Adicionar novo livro'
+      action_message: 'Adicionar novo livro',
+      hiddenBookDescription: false,
+      hiddenPlot: true,
+      id: 0,
     }
   },
 
@@ -87,6 +90,13 @@ export default {
       await ServiceBooks.listBooks().then(res => {
         this.books = res.data
       })
+    },
+
+    rollingBookDescription(id) {
+      this.hiddenBookDescription = !this.hiddenBookDescription
+      this.hiddenPlot = !this.hiddenPlot
+
+      this.id = id
     }
   },
 
@@ -111,7 +121,7 @@ export default {
     }
   
     p {
-      margin-bottom: 30px;
+      margin-bottom: 5px;
       color: #808080;
     }
   }
@@ -120,6 +130,7 @@ export default {
     background: #808080;
     padding: 10px 15px;
     border-radius: 10px;
+    margin: 6px;
     cursor: pointer;
     box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.24);
 
@@ -132,6 +143,21 @@ export default {
 
 .card-book {
   display: flex;
+  margin-top: 30px;
+  animation: down .5s ease-in-out;
+
+  @keyframes down {
+    from {
+      display: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-25%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   .book-image {
     width: 20%;
@@ -183,11 +209,4 @@ export default {
     }
   }
 }
-/*.container-box {
-  padding: 20px 0;
-
-  ul {
-    padding: 0 20px;
-  }
-}*/
 </style>
