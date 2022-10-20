@@ -21,16 +21,23 @@
             <ul>
               <li v-for="book in books" :key="book._id">
                 <card>
-                  <div class="book-commands" @click="rollingBookDescription(book._id)">
-                    <div class="book-description">
+                  <div class="book-commands">
+                    <div 
+                      class="book-description" 
+                      @click="rollingBookDescription(book._id)"
+                    >
                       <h3>{{ book.title }}</h3>
-                      <p v-if="hiddenPlot">{{ book.plot }}</p>
+                      <p>{{ book.plot }}</p>
                     </div>
-                    <div class="icon-menu">
+                    <div 
+                      class="icon-menu" 
+                      v-if="hiddenMenuOptions && id === book._id"
+                      @click="teste(book._id)"
+                    >
                       <font-awesome-icon icon="fa-solid fa-bars" />
                     </div>
                   </div>
-                  <div class="card-book" v-if="hiddenBookDescription">
+                  <div class="card-book" v-if="hiddenBookDescription && id === book._id">
                     <div class="book-image">
                       <img :src="book.poster" alt="imagem do livro" />
                     </div>
@@ -80,7 +87,7 @@ export default {
       books: [],
       action_message: 'Adicionar novo livro',
       hiddenBookDescription: false,
-      hiddenPlot: true,
+      hiddenMenuOptions: false,
       id: 0,
     }
   },
@@ -94,9 +101,13 @@ export default {
 
     rollingBookDescription(id) {
       this.hiddenBookDescription = !this.hiddenBookDescription
-      this.hiddenPlot = !this.hiddenPlot
+      this.hiddenMenuOptions = !this.hiddenMenuOptions
 
       this.id = id
+    },
+
+    teste(id) {
+      alert(id)
     }
   },
 
